@@ -1,4 +1,4 @@
-package ru.netology.Web;
+package ru.netology.web;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
