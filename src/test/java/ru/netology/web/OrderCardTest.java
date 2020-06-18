@@ -1,9 +1,9 @@
 package ru.netology.web;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +23,21 @@ public class OrderCardTest {
     String dateExpired = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
     String datePast = LocalDate.now().plusDays(-2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+
+    private static ChromeDriver driver;
+    ChromeOptions chromeOptions = new ChromeOptions();
+
+    @BeforeEach
+    void setUp() {
+        chromeOptions.addArguments("--headless");
+        driver = new ChromeDriver(chromeOptions);
+    }
+
+    @AfterEach
+    void tearDown() {
+        driver.quit();
+        driver = null;
+    }
 
     @Nested
     @DisplayName("Тесты по полю 'Город'")
