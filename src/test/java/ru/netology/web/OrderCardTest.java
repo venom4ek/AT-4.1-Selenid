@@ -24,13 +24,6 @@ public class OrderCardTest {
 
     String datePast = LocalDate.now().plusDays(-2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
-    ChromeOptions chromeOptions = new ChromeOptions();
-
-    @BeforeEach
-    void setUp() {
-        chromeOptions.addArguments("--headless");
-    }
-
 
     @Nested
     @DisplayName("Тесты по полю 'Город'")
