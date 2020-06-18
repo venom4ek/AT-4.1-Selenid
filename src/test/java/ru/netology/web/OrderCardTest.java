@@ -24,20 +24,13 @@ public class OrderCardTest {
 
     String datePast = LocalDate.now().plusDays(-2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
-    private static ChromeDriver driver;
     ChromeOptions chromeOptions = new ChromeOptions();
 
     @BeforeEach
     void setUp() {
         chromeOptions.addArguments("--headless");
-        driver = new ChromeDriver(chromeOptions);
     }
 
-    @AfterEach
-    void tearDown() {
-        driver.quit();
-        driver = null;
-    }
 
     @Nested
     @DisplayName("Тесты по полю 'Город'")
