@@ -2,8 +2,6 @@ package ru.netology.web;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,7 +28,7 @@ public class OrderCardTest {
     public class FiledCityTest {
         @Test
         void shouldSubmitRequestFieldCity() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -38,13 +36,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenCityAcrossLine() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Улан-Удэ");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue("");
@@ -53,13 +51,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenCitySeparateBySpace() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Улан-Удэ");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -67,13 +65,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenCityConsistOfThreeWord() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Ростов-на-Дону");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -81,13 +79,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenNonExistentCity() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("No City");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -95,13 +93,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='city'] span.input__sub").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='city'] span.input__sub").waitUntil(visible, 14000).getText();
             assertEquals("Доставка в выбранный город недоступна", getText);
         }
 
         @Test
         void shouldRequestWhenCityIsEmpty() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -109,7 +107,7 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='city'] span.input__sub").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='city'] span.input__sub").waitUntil(visible, 14000).getText();
             assertEquals("Поле обязательно для заполнения", getText);
         }
     }
@@ -120,7 +118,7 @@ public class OrderCardTest {
 
         @Test
         void shouldRequestWhenDateAfterThreeDays() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -128,13 +126,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenDateOverThreeDays() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(dateOver);
@@ -142,13 +140,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenDateLesTreeDays() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(dateExpired);
@@ -162,7 +160,7 @@ public class OrderCardTest {
 
         @Test
         void shouldRequestWhenDateExpired() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(datePast);
@@ -176,7 +174,7 @@ public class OrderCardTest {
 
         @Test
         void shouldRequestWhenNonExistentDate() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue("35.15.2020");
@@ -190,7 +188,7 @@ public class OrderCardTest {
 
         @Test
         void shouldRequestWhenDateIsEmpty() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue("");
@@ -209,7 +207,7 @@ public class OrderCardTest {
 
         @Test
         void shouldSubmitRequestFieldName() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -217,13 +215,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenDoubleName() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -231,13 +229,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenDoubleName2() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -245,13 +243,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenDoubleSurname() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -259,13 +257,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenEnglishName() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -279,7 +277,7 @@ public class OrderCardTest {
 
         @Test
         void shouldRequestWhenNameIsEmpty() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -295,7 +293,7 @@ public class OrderCardTest {
         //этот тест падает, т.к. форма допускает ввод только имени или фамилии, а так же любой абракадары.
         @Test
         void shouldRequestWhenOnlyOneWord() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -314,7 +312,7 @@ public class OrderCardTest {
 
         @Test
         void shouldSubmitRequestFieldPhone() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -322,13 +320,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestWhenNotCorrectPhone() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -342,7 +340,7 @@ public class OrderCardTest {
 
         @Test
         void shouldRequestWhenPhoneIsEmpty() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -359,7 +357,7 @@ public class OrderCardTest {
         // форма должна учитывать начало номера телефона с "+7", по факту только с "+"
         @Test
         void shouldRequestWhenNotCorrectPhone2() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -378,7 +376,7 @@ public class OrderCardTest {
 
         @Test
         void shouldRequestCheckboxSelected() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
@@ -386,13 +384,13 @@ public class OrderCardTest {
             $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
             $("[data-test-id='agreement']").click();
             $$("button").find(exactText("Забронировать")).click();
-            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 12000).getText();
+            String getText = $("[data-test-id='notification'] div.notification__title").waitUntil(visible, 14000).getText();
             assertEquals("Успешно!", getText);
         }
 
         @Test
         void shouldRequestCheckboxUnSelected() {
-            open("http://127.0.0.1:9999/");
+            open("http://localhost:9999/");
             $("[data-test-id='city'] [type='text']").setValue("Москва");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
