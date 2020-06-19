@@ -291,19 +291,19 @@ public class OrderCardTest {
 
 
         //этот тест падает, т.к. форма допускает ввод только имени или фамилии, а так же любой абракадары.
-//        @Test
-//        void shouldRequestWhenOnlyOneWord() {
-//            open("http://localhost:9999/");
-//            $("[data-test-id='city'] [type='text']").setValue("Москва");
-//            $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
-//            $("[data-test-id='date'] [type='tel']").setValue(date);
-//            $("[data-test-id='name'] [type='text']").setValue("Иван");
-//            $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
-//            $("[data-test-id='agreement']").click();
-//            $$("button").find(exactText("Забронировать")).click();
-//            String getText = $("[data-test-id='name'].input_invalid").getCssValue("color");
-//            assertEquals("rgba(255, 92, 92, 1)", getText);
-//        }
+        @Test
+        void shouldRequestWhenOnlyOneWord() {
+            open("http://localhost:9999/");
+            $("[data-test-id='city'] [type='text']").setValue("Москва");
+            $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+            $("[data-test-id='date'] [type='tel']").setValue(date);
+            $("[data-test-id='name'] [type='text']").setValue("Иван");
+            $("[data-test-id='phone'] [type='tel']").setValue("+79256541122");
+            $("[data-test-id='agreement']").click();
+            $$("button").find(exactText("Забронировать")).click();
+            String getText = $("[data-test-id='name'].input_invalid").getCssValue("color");
+            assertEquals("rgba(255, 92, 92, 1)", getText);
+        }
     }
 
     @Nested
@@ -352,22 +352,51 @@ public class OrderCardTest {
             assertEquals("Поле обязательно для заполнения", getText);
         }
 
+        @Test
+        void shouldRequestWhenShortNumber() {
+            open("http://localhost:9999/");
+            $("[data-test-id='city'] [type='text']").setValue("Москва");
+            $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+            $("[data-test-id='date'] [type='tel']").setValue(date);
+            $("[data-test-id='name'] [type='text']").setValue("Иванов Андрей");
+            $("[data-test-id='phone'] [type='tel']").setValue("+7929323");
+            $("[data-test-id='agreement']").click();
+            $$("button").find(exactText("Забронировать")).click();
+            String getText = $("[data-test-id='phone'] span.input__sub").getText();
+            assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", getText);
+        }
+
+        @Test
+        void shouldRequestWhenLongNumber() {
+            open("http://localhost:9999/");
+            $("[data-test-id='city'] [type='text']").setValue("Москва");
+            $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+            $("[data-test-id='date'] [type='tel']").setValue(date);
+            $("[data-test-id='name'] [type='text']").setValue("Иванов Андрей");
+            $("[data-test-id='phone'] [type='tel']").setValue("+792932300221");
+            $("[data-test-id='agreement']").click();
+            $$("button").find(exactText("Забронировать")).click();
+            String getText = $("[data-test-id='phone'] span.input__sub").getText();
+            assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", getText);
+        }
 
         // данный тест так же падает, т.к. нет проверки правильного ввода номера.
         // форма должна учитывать начало номера телефона с "+7", по факту только с "+"
-//        @Test
-//        void shouldRequestWhenNotCorrectPhone2() {
-//            open("http://localhost:9999/");
-//            $("[data-test-id='city'] [type='text']").setValue("Москва");
-//            $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
-//            $("[data-test-id='date'] [type='tel']").setValue(date);
-//            $("[data-test-id='name'] [type='text']").setValue("Иванов Андрей");
-//            $("[data-test-id='phone'] [type='tel']").setValue("+89256541122");
-//            $("[data-test-id='agreement']").click();
-//            $$("button").find(exactText("Забронировать")).click();
-//            String getText = $("[data-test-id='phone'] span.input__sub").getText();
-//            assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", getText);
-//        }
+        @Test
+        void shouldRequestWhenNotCorrectPhone2() {
+            open("http://localhost:9999/");
+            $("[data-test-id='city'] [type='text']").setValue("Москва");
+            $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
+            $("[data-test-id='date'] [type='tel']").setValue(date);
+            $("[data-test-id='name'] [type='text']").setValue("Иванов Андрей");
+            $("[data-test-id='phone'] [type='tel']").setValue("+89256541122");
+            $("[data-test-id='agreement']").click();
+            $$("button").find(exactText("Забронировать")).click();
+            String getText = $("[data-test-id='phone'] span.input__sub").getText();
+            assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", getText);
+        }
+
+
     }
 
     @Nested
