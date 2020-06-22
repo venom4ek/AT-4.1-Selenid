@@ -58,7 +58,7 @@ public class OrderCardTest {
         @Test
         void shouldRequestWhenCitySeparateBySpace() {
             open("http://localhost:9999/");
-            $("[data-test-id='city'] [type='text']").setValue("Улан-Удэ");
+            $("[data-test-id='city'] [type='text']").setValue("Нижний Новгород");
             $("[data-test-id='date'] [type='tel']").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
             $("[data-test-id='date'] [type='tel']").setValue(date);
             $("[data-test-id='name'] [type='text']").setValue("Иванов Андрей");
